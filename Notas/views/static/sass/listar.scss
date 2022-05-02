@@ -1,0 +1,113 @@
+@import 'variables';
+@import 'normalize';
+
+.body{
+    display: grid;
+    height: 100vh;
+    grid-template-areas:"logo . ."
+                        ". atajo ."
+                        ". tabla .";
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, max-content);
+}
+
+.logoprueba{
+    grid-area: tabla;
+}
+
+.atajos{
+    grid-area: atajo;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+
+    .icono{ 
+        font-size: 3em;
+        &:hover{
+            color: #8b0000;
+        }
+    }
+}
+
+.table__container{
+    grid-area: tabla;
+}
+
+
+.table{
+    table-layout:auto;   
+    border: 3px solid $color-border;
+    border-collapse:collapse;
+    margin: 1em;
+    min-width: 30em;
+
+    &__data{
+        padding: 10px;
+        text-align: center;
+        
+        &__icon{
+            visibility: collapse;
+            opacity: 0;
+            transition: 1s;
+        }
+
+        &-iconos{
+            display: flex;
+            width: 0;
+        }
+
+        &-tarea{
+            max-width: 66em;
+        }
+
+        &-encabezado{
+            font-size: 1.2em;
+            padding: 10px;
+        }
+    }
+    &-icon{
+        padding: 6px;
+        margin: 2px;
+        margin-left: 10px;
+        border: 3px solid #FFF;
+        border-radius: 50%;
+        background-color: #000;
+        color: #FFF;
+
+    }
+
+    &__row{
+        background-color: $row-background; 
+ 
+        &-encabezado{
+            background-color: $th-background;
+            border-bottom: 2px solid $color-border;
+
+        }
+
+        &:nth-child(even){
+            background-color: $row-background-even
+        }
+
+        &:hover{
+            background-color: $row-background-hover;
+    
+            .table__data__icon {
+                visibility: visible;
+                opacity: 1;
+                Transition: opacity .3s;
+            }
+        }
+    }
+
+    &__a{
+        color: #000;
+        text-decoration: none;
+    }
+}
+
+.finalizada{
+    color:red;
+    text-decoration:line-through;
+}
