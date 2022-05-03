@@ -14,8 +14,7 @@ def list_all():
     return categorias
 
 def create(categoria):
-    nombre = categoria.categoria
-    nombre = nombre.capitalize()
+    nombre = (categoria.categoria).capitalize()
 
     query = f'''
         INSERT INTO categorias (categoria)
@@ -23,7 +22,7 @@ def create(categoria):
         '''
     DB.EjecutarSQL(DB, query)
 
-    nombre = (nombre.title()).replace(" ", "") # Ponemos el incio de cada palabra en mayuscula y retiramos los espacios
+    nombre = nombre.replace(" ", "") # Retiramos los espacios para que pueda almacenarse en la BD
 
     query = f''' 
         CREATE TABLE {nombre} (
@@ -44,7 +43,7 @@ def delete(categoria):
     """
     DB.EjecutarSQL(DB, query)
 
-    nombre = (nombre.title()).replace(" ", "")
+    nombre = nombre.replace(" ", "") # Retiramos los espacios para que pueda almacenarse en la BD
 
     query = f"""
     DROP TABLE {nombre}
@@ -54,8 +53,8 @@ def delete(categoria):
 def update(categoria):
  
     id = categoria.id
-    oldName = auxx.select(id)  
-    newName = categoria.categoria
+    oldName = auxx.select(id)  # Nombre actual de la categoria y que se debe cambiar
+    newName = categoria.categoria # Nombre que reemplazara al viejo
 
 #-------------------
  
@@ -66,8 +65,8 @@ def update(categoria):
     """
     DB.EjecutarSQL(DB, query)
 
-    newName = (newName.title()).replace(" ", "")
-    oldName = (oldName.title()).replace(" ", "")
+    newName = newName.replace(" ", "")
+    oldName = oldName.replace(" ", "")
      
     query = f"""
     ALTER TABLE {oldName} 

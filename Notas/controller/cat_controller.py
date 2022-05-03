@@ -14,7 +14,3 @@ def delete(categoria: Categoria) -> Categoria:
 
 def update(categoria: Categoria) -> Categoria:
     return categoriasDB.update(categoria)
-
-def details(categoria: Categoria) -> Categoria:
-    return categoriasDB.detail(categoria)
-

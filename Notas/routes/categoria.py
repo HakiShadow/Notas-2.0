@@ -14,7 +14,7 @@ def get_list():
 def create():
     if request.method == 'POST':
         nombre = request.form['nombre']
-        cat = Categoria(categoria=nombre)
+        cat = Categoria(categoria = nombre)
         cat_controller.create(cat)
         return redirect('/')
     else:
@@ -22,7 +22,7 @@ def create():
 
 @categoria.route('/eliminarCat/<id>')
 def delete(id):
-    cat = Categoria(id=id)
+    cat = Categoria(id = id)
     cat_controller.delete(cat)
     return redirect('/')
 

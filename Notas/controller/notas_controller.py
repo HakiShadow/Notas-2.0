@@ -5,15 +5,13 @@ def list(notas):
     return notasDB.list_all(notas)
 
 def create(categoriaId: Categoria, nota: Notas) -> Notas:
-    print('notas')
     return notasDB.create(categoriaId, nota)
 
-# def delete(categoria: Categoria) -> Categoria:
-#     return categorias.delete(categoria)
+def delete(categoriaId: Categoria, nota: Notas):
+    return notasDB.delete(categoriaId, nota)
 
-# def update(categoria: Categoria) -> Categoria:
-#     return categorias.update(categoria)
+def update(nota: Notas, notaID: Notas, categoria: Categoria):
+    return notasDB.update(nota, notaID, categoria)
 
-# def details(categoria: Categoria) -> Categoria:
-#     return categorias.detail(categoria)
-
+def status(categoria: Categoria, nota: Notas):
+    return notasDB.status(categoria, nota)
