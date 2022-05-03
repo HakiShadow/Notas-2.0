@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{accion}} categoria
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/newCat.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="home">
+    <a href="/">
+        <i class="fa-solid fa-list-check icono"></i>
+    </a>
+</div>
+<div class="container">
+    <form class="form" action="" method="post">
+        <h1 class="title">
+            {{ accion }}
+        </h1>
+        <div class="form__container-textarea">
+            <input type="text" class="form__input form__text-area" name="nombre" id="tarea">
+            <label class="form__label" for="tarea">Nombre de categoria</label>
+        </div>
+        <button class="submit" type="submit">Enviar</button>
+    </form>
+</div>
+{% endblock %}
