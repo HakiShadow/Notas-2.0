@@ -346,18 +346,6 @@ template {
   display: none;
 }
 
-.body {
-  display: grid;
-  height: 100vh;
-  grid-template-areas: "logo . ." ". atajo ." ". form .";
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, max-content);
-}
-
-.header {
-  grid-area: logo;
-}
-
 .home {
   grid-area: atajo;
   display: flex;
@@ -367,7 +355,7 @@ template {
 }
 
 .container {
-  grid-area: form;
+  grid-area: center;
   display: flex;
   flex-direction: column;
   align-items: center;

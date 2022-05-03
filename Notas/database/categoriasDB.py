@@ -2,20 +2,30 @@ from ..models.models import Categoria
 from .connection import DataBase as DB
 from ..helpers import auxx
 
-
 def list_all():
-    query = '''
-        SELECT * FROM categorias
+    if auxx.existencia() == 0: # En caso que sea la primera vez usando la app, se creara por unica vez la tabla principal
+        query = '''
+        CREATE TABLE categorias (
+        id INTEGER PRIMARY KEY AUTO_INCREMENT,
+        categoria VARCHAR(50) NOT NULL UNIQUE
+        )
         '''
-    categorias = []
-    for record in DB.EjecutarSQL(DB, query):
-        categoria = Categoria(id=record[0], categoria=record[1]) #Se genera una lista que contiene objetos!
-        categorias.append(categoria)
-    return categorias
+        DB.EjecutarSQL(DB, query)
+        listo = 'Recien creada'
+        return listo
+    else:
+        query = '''
+            SELECT * FROM categorias
+            '''
+        categorias = []
+        for record in DB.EjecutarSQL(DB, query):
+            categoria = Categoria(id=record[0], categoria=record[1]) #Se genera una lista que contiene objetos!
+            categorias.append(categoria)
+        return categorias
 
 def create(categoria):
     nombre = (categoria.categoria).capitalize()
-
+    
     query = f'''
         INSERT INTO categorias (categoria)
         VALUES ('{nombre}');

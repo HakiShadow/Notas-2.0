@@ -18,3 +18,13 @@ def selectTarea(categoria, idtarea):
     tarea = DB.EjecutarSQL(DB, query)
     tarea = tarea[0]
     return tarea
+
+def existencia():
+    query = '''
+    select count(*) 
+    FROM information_schema.TABLES 
+    WHERE (TABLE_SCHEMA = 'temporal') 
+    AND (TABLE_NAME = 'categorias')
+    '''
+    existe = DB.EjecutarSQL(DB, query)
+    return existe[0][0]

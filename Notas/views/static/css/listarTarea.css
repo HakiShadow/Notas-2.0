@@ -347,15 +347,7 @@ template {
 }
 
 .body {
-  display: grid;
-  height: 100vh;
-  grid-template-areas: "logo . ." ". atajo ." ". tabla .";
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, max-content);
-}
-
-.logoprueba {
-  grid-area: tabla;
+  grid-template-columns: 1fr 4fr 1fr;
 }
 
 .atajos {
@@ -370,10 +362,6 @@ template {
 }
 .atajos .icono:hover {
   color: #8b0000;
-}
-
-.table__container {
-  grid-area: tabla;
 }
 
 .table {
@@ -440,4 +428,4 @@ template {
   text-decoration: line-through;
 }
 
-/*# sourceMappingURL=listar.css.map */
+/*# sourceMappingURL=listarTarea.css.map */

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, url_for
 
 from ..controller import cat_controller
 from ..models.models import Categoria
@@ -8,7 +8,10 @@ categoria = Blueprint("categorias", __name__)
 @categoria.route('/', methods=['GET'])
 def get_list():
     cat_list = cat_controller.lists()
-    return render_template('listCategorias.html', categoria = cat_list)
+    if cat_list == 'Recien creada':
+        return redirect('/')
+    else:
+        return render_template('listCategorias.html', categoria = cat_list)
 
 @categoria.route('/addCat', methods=['GET', 'POST'])
 def create():

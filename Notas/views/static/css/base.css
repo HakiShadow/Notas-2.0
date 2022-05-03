@@ -349,13 +349,24 @@ template {
 body {
   font-family: cursive;
   size: 20px;
-  height: 100%;
   background-color: #ABC;
+  display: grid;
+  height: 100vh;
+  grid-template-areas: "logo . ." ". atajo ." ". center .";
+  grid-template-rows: repeat(3, max-content);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .logoprueba {
+  grid-area: logo;
   font-size: 5em;
   margin: 0.1em;
+}
+
+.table__container {
+  grid-area: center;
+  display: flex;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=base.css.map */

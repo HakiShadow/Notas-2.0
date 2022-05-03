@@ -19,7 +19,7 @@ def create(categoriaId, notas):
     tablaCat = auxx.select(categoriaId)
     tablaCat = tablaCat.replace(" ", "")
 
-    nota = notas.nota
+    nota = ((notas.nota) + '.') 
     estado = notas.estado
 
     mes = str(notas.mes)
@@ -58,6 +58,8 @@ def update(nota, notaID, categoria):
     categoria = auxx.select(categoria.id) # Nombre de la categoria donde se ubica la nota que queremos cambiar
     categoria = categoria.replace(" ", "")
 
+    notaa = ((nota.nota) + '.') 
+
     mes = str(nota.mes)
     dia = str(nota.dia)
 
@@ -66,7 +68,7 @@ def update(nota, notaID, categoria):
     query = f"""
     UPDATE {categoria} 
     SET 
-    tarea = '{(nota.nota).capitalize()}',
+    tarea = '{notaa.capitalize()}',
     fecha = STR_TO_DATE('{fecha}',"%m/%d")
     WHERE id = {notaID.id}
     """

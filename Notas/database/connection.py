@@ -13,15 +13,6 @@ class DataBase:
     def CerrarConexion(self):
         self.connection.close()
     
-    def CrearTablas(self, sql):
-        self.__init__(self) #Iniciar la conexion
-        
-        cur = self.cursor
-        cur.execute(sql)
-
-        self.connection.commit()
-        self.CerrarConexion(self)
-    
     def EjecutarSQL(self, sql):
         self.__init__(self) #Iniciar la conexion
 
