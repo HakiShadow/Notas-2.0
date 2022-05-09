@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from ..helpers import auxx
 from ..controller import notas_controller
 from ..models.models import Notas, Categoria
+from .exceptions import Errores
 
 notas = Blueprint("notas", __name__)
 
@@ -10,19 +11,27 @@ def list(id):
     # Este ID es el de la categoria
     notas = Notas(id=id)
     list = notas_controller.list(notas) or []
+
+    if list == 404:
+        return Errores.notfound()
     return render_template('listTareas.html', tarea = list, id = id)
 
 @notas.route('/add/<id>', methods=['GET', 'POST'])
 def addNote(id):
     categoria = Categoria(id = id)
     if request.method == 'POST':
-        datos = request.form
-        nota = Notas(nota = datos['tarea'],
-                    dia =  datos['dia'],
-                    mes = datos['mes'],
-                    estado = 0)
-        notas_controller.create(categoria, nota)
-        return redirect(url_for('notas.list', id = categoria))
+        try:
+            datos = request.form
+            nota = Notas(nota = datos['tarea'],
+                        dia = datos['dia'],
+                        mes = datos['mes'],
+                        estado = 0)
+        except Exception as ex:
+            print(ex)
+            return Errores.badrequest()
+        else:   
+            notas_controller.create(categoria, nota)
+            return redirect(url_for('notas.list', id = categoria))
     else:
         return render_template('tareaEdAdd.html', accion = 'Crear', id = categoria.id)
 
@@ -38,13 +47,19 @@ def editar(id, idtarea):
     categoria = Categoria(id = id)
 
     if request.method == 'POST':
-        datos = request.form
 
-        nota = Notas(nota = datos['tarea'],
-                    dia =  datos['dia'],
-                    mes = datos['mes'])
+        try:
+            datos = request.form
 
-        notaID = Notas(id = idtarea)
+            nota = Notas(nota = datos['tarea'],
+                        dia =  datos['dia'],
+                        mes = datos['mes'])
+
+            notaID = Notas(id = idtarea)
+
+        except Exception as ex:
+            print(ex)
+            return  Errores.badrequest()
 
         notas_controller.update(nota, notaID, categoria)
         return redirect(url_for('notas.list', id = categoria))
