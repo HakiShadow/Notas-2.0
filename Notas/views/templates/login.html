@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sesion.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form class="form" action="" method="post">
+        <h1>Login</h1>
+
+        <div class="form__input-container">
+            
+            <label for="user" class="form__label">
+                User:
+                <input type="text" name="user" required placeholder="user" class="form__input" id="user">
+            </label>
+            
+        </div>
+
+        <div class="form__input-container">
+            
+            <label for="pass" class="form__label">
+                Pass:
+                <input type="password" name="pass" required placeholder="pass" class="form__input" id="pass">
+            </label>
+            
+        </div>
+        <div class="form__input-container">
+
+            <label for="check" class="form__label">
+                Mantener la sesión activa?
+                <input type="checkbox" name="check" id="check">
+            </label>
+
+        </div>
+        
+        <button class="submit" type="submit">Enviar</button>
+    </form>
+</div>
+{% endblock %}

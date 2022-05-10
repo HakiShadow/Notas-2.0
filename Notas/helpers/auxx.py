@@ -52,3 +52,10 @@ def preparar(notas):
     nota = [nota, fecha, estado]
 
     return nota
+
+def recordarme(recordar):
+    if recordar == 'on':
+        check = True
+    else:
+        check = False
+    return (check)

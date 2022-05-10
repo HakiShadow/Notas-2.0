@@ -12,3 +12,8 @@ class Notas(NamedTuple):
     dia: Optional[str] = None
     mes: Optional[str] = None
     estado: Optional[bool] = None
+
+class Users(NamedTuple):
+    id: Optional[int] = None
+    user: Optional[str] = None
+    pas: Optional[str] = None

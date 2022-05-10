@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Signup
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sesion.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form action="/signup" method="post" class="form">
+        <h1>Signup</h1>
+
+        <div class="form__input-container">
+        <label for="user" class="form__label">
+            User:
+            <input type="text" required placeholder="user" name="user" class="form__input" id="user">
+        </label>
+        </div>
+        
+        <div class="form__input-container">
+            <label for="pass" class="form__label">
+                Pass:
+                <input type="password" required placeholder="pass" name="pass" class="form__input" id="pass">
+            </label>
+        </div>
+        <input type="submit">
+
+
+    </form>
+</div>
+{% endblock %}

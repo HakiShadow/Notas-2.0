@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request, redirect
 from ..controller import cat_controller
 from ..models.models import Categoria
 from .exceptions import Errores
+
 categoria = Blueprint("categorias", __name__)
 
 
