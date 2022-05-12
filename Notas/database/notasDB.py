@@ -1,30 +1,21 @@
 from flask import redirect, url_for
 from .connection import DataBase as DB
 from ..helpers import auxx
+from ..routes.exceptions import Errores 
 
 
-def list_all(notas):
-    id = notas.id
+def list_all(categoria):
 
     try:
-        tabla = auxx.select(id)
-
-    except Exception as ex :
-        # En este caso lo realice así porque solo se me ocurre que haya un error en caso que el usuario
-        # altere la url para acceder a una tarea que no existe
-        error = 404
-        print(ex)
-        return error
-
-    else:
-        tabla = tabla.replace(" ", "")
-
         query = f'''
-        SELECT * FROM {tabla} ORDER BY fecha, estado asc
+        SELECT * FROM tareas WHERE id_cat = {categoria.id} and id_user = {categoria.id_user} ;
         '''
-        tareasDict = []
-        tareasDict = DB.EjecutarSQL(DB, query)
-        return tareasDict
+        result = []
+        result = DB.EjecutarSQL(DB, query)
+        return result
+    except Exception as ex:
+        print(ex)
+        return Errores.badrequest()
         
 def create(categoriaId, notas):
 

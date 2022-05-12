@@ -1,8 +1,8 @@
 from ..database import notasDB
 from ..models.models import Notas, Categoria
 
-def list(notas):
-    return notasDB.list_all(notas)
+def list(categoria):
+    return notasDB.list_all(categoria)
 
 def create(categoriaId: Categoria, nota: Notas) -> Notas:
     return notasDB.create(categoriaId, nota)

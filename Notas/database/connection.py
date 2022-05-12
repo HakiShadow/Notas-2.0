@@ -6,7 +6,7 @@ class DataBase:
             host = 'localhost',
             user = 'root',
             password = 'lealeo321',
-            db = 'tareas'
+            db = 'notas-remaster'
         )
         self.cursor = self.connection.cursor()
 

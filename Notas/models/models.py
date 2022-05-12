@@ -5,6 +5,7 @@ from typing import NamedTuple, Optional
 class Categoria(NamedTuple):
     id: Optional[int] = None
     categoria: Optional[str] = None
+    id_user: Optional[int] = None
 
 class Notas(NamedTuple):
     id: Optional[int] = None

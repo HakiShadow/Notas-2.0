@@ -1,20 +1,26 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
 from ..helpers import auxx
 from ..controller import notas_controller
-from ..models.models import Notas, Categoria
+from ..models.models import Notas, Categoria, Users
 from .exceptions import Errores
 
 notas = Blueprint("notas", __name__)
 
-@notas.route('/tareas/<id>', methods=['GET'])
-def list(id):
-    # Este ID es el de la categoria
-    notas = Notas(id=id)
-    list = notas_controller.list(notas) or []
-
-    if list == 404:
-        return Errores.notfound()
-    return render_template('listTareas.html', tarea = list, id = id)
+@notas.route('/<user>/tareas/<id>', methods=['GET'])
+def list(user, id):
+    try:
+        if user in session['user']:
+            print(1)
+            idUser = auxx.selectUserID(user)
+            categoria = Categoria(id = id, id_user = idUser)
+            notas = notas_controller.list(categoria) or []
+            print(1)
+            return render_template('listTareas.html', tarea = notas, id = id)
+        else:
+            return redirect(url_for('sesiones.login'))
+    except Exception as ex:
+        print(ex)
+        return redirect(url_for('categorias.get_list', user = user))
 
 @notas.route('/add/<id>', methods=['GET', 'POST'])
 def addNote(id):

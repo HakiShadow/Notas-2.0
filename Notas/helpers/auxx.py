@@ -21,9 +21,9 @@ def selectTarea(categoria, idtarea):
 
 def existencia():
     query = '''
-    select count(*) 
+    SELECT count(*) 
     FROM information_schema.TABLES 
-    WHERE (TABLE_SCHEMA = 'tareas') 
+    WHERE (TABLE_SCHEMA = 'notas-remaster') 
     AND (TABLE_NAME = 'categorias')
     '''
     existe = DB.EjecutarSQL(DB, query)
@@ -59,3 +59,11 @@ def recordarme(recordar):
     else:
         check = False
     return (check)
+
+def selectUserID(user):
+    query = f'''
+    SELECT idusers FROM users WHERE user = '{user}'
+    '''
+    result = DB.EjecutarSQL(DB, query)
+    result = result[0][0]
+    return result

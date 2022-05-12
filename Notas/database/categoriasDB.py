@@ -3,20 +3,25 @@ from .connection import DataBase as DB
 from ..helpers import auxx
 
 
-def list_all():
+def list_all(userID):
     if auxx.existencia() == 0: # En caso que sea la primera vez usando la app, se creara por unica vez la tabla principal
         query = '''
-        CREATE TABLE categorias (
-        id INTEGER PRIMARY KEY AUTO_INCREMENT,
-        categoria VARCHAR(50) NOT NULL UNIQUE
-        )
+        CREATE TABLE 'categorias' (
+        'idcategorias' int NOT NULL AUTO_INCREMENT,
+        'categoria' varchar(45) NOT NULL,
+        'user_id' int NOT NULL,
+        PRIMARY KEY ('idcategorias'),
+        KEY 'idusers_idx' ('user_id'),
+        CONSTRAINT 'idusers' FOREIGN KEY ('user_id') REFERENCES 'users' ('idusers')
+        ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
         '''
         DB.EjecutarSQL(DB, query)
         listo = 'Recien creada'
         return listo
     else:
-        query = '''
-            SELECT * FROM categorias ORDER BY id asc
+        print('aja')
+        query = f'''
+            SELECT * FROM categorias WHERE user_id = '{userID}' ORDER BY idcategorias asc
             '''
         categorias = []
         for record in DB.EjecutarSQL(DB, query):
@@ -24,64 +29,38 @@ def list_all():
             categorias.append(categoria)
         return categorias
 
-def create(categoria):
+def create(categoria, user):
     try:
         nombre = (categoria.categoria).capitalize()
+        userID = user.id
         query = f'''
-            INSERT INTO categorias (categoria)
-            VALUES ('{nombre}');
+            INSERT INTO categorias (categoria, user_id)
+            VALUES ('{nombre}', {userID});
             '''
         DB.EjecutarSQL(DB, query)
 
     except Exception as ex:
         print(ex)
         return ex
-    
-    else:
-        try:
-            nombreTabla = nombre.replace(" ", "") # Retiramos los espacios para que pueda almacenarse en la BD
 
-            query = f''' 
-                CREATE TABLE {nombreTabla} (
-                id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                tarea VARCHAR(500) NOT NULL,
-                fecha DATE NOT NULL,
-                estado BOOLEAN NOT NULL
-                )'''
-            DB.EjecutarSQL(DB, query)
-
-        except Exception as ex: # En caso que la creación de la tabla falle, 
-                                # borramos la categoria, de modo que no quede uno sin otro
-            print(ex)
-            query = f"""
-                DELETE FROM categorias
-                WHERE categoria = '{nombre.capitalize()}'
-                """
-            DB.EjecutarSQL(DB, query)
-            return ex
-
-def delete(categoria):
-    id = categoria.id
-    nombre = auxx.select(id)
+def delete(categoria, user):
 
     query = f"""
     DELETE FROM categorias
-    WHERE categoria = '{nombre.capitalize()}'
+    WHERE idcategorias = {categoria.id} and user_id = '{user.id}'
     """
     DB.EjecutarSQL(DB, query)
-
-    nombre = nombre.replace(" ", "") # Retiramos los espacios para que pueda almacenarse en la BD
 
     query = f"""
-    DROP TABLE {nombre}
-    """
+        DELETE FROM tareas 
+        WHERE id_cat = {categoria.id} and id_user = {user.id}
+        """
     DB.EjecutarSQL(DB, query)
     
-def update(categoria):
+def update(categoria, user):
 
     try: 
         id = categoria.id
-        oldName = auxx.select(id)  # Nombre actual de la categoria y que se debe cambiar
         newName = categoria.categoria # Nombre que reemplazara al viejo
 
     except Exception as ex:
@@ -93,34 +72,10 @@ def update(categoria):
             query = f"""
             UPDATE categorias 
             SET categoria = '{newName.capitalize()}'
-            WHERE categoria = '{oldName.capitalize()}'
+            WHERE (idcategorias = {id}) and (user_id = {user.id})
             """
             DB.EjecutarSQL(DB, query)
 
         except Exception as ex:
             print(ex)
             return ex
-        
-        else:
-            try:
-                newName2 = newName.replace(" ", "")
-                oldName2 = oldName.replace(" ", "")
-        
-                query = f"""
-                ALTER TABLE {oldName2} 
-                RENAME TO {newName2};
-                """
-                DB.EjecutarSQL(DB, query)
-
-            except Exception as ex:
-                print(ex)
-
-                query = f"""
-                UPDATE categorias 
-                SET categoria = '{oldName.capitalize()}'
-                WHERE categoria = '{newName.capitalize()}'
-                """
-                DB.EjecutarSQL(DB, query)
-                
-                # En caso de un problema, restauramos lo que ya se habia creado
-                return ex
