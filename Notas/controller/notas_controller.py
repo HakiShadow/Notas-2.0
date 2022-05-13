@@ -1,17 +1,28 @@
 from ..database import notasDB
-from ..models.models import Notas, Categoria
+from ..models.models import Notas, Categoria, Users
+from ..helpers import auxx
 
 def list(categoria):
     return notasDB.list_all(categoria)
 
-def create(categoriaId: Categoria, nota: Notas) -> Notas:
-    return notasDB.create(categoriaId, nota)
+def create(categoriaId: Categoria, nota: Notas, user: Users) -> Notas:
+    return notasDB.create(categoriaId, nota, user)
 
-def delete(categoriaId: Categoria, nota: Notas):
-    return notasDB.delete(categoriaId, nota)
+def delete(nota: Notas):
+    return notasDB.delete(nota)
 
-def update(nota: Notas, notaID: Notas, categoria: Categoria):
-    return notasDB.update(nota, notaID, categoria)
+def update(nota: Notas, notaID: Notas):
+    return notasDB.update(nota, notaID)
 
-def status(categoria: Categoria, nota: Notas):
-    return notasDB.status(categoria, nota)
+def status(nota: Notas):
+
+    status = auxx.tareaStatus(nota.id)
+
+    if status == 0:
+        status = 1
+        nota = Notas(id = nota.id, estado = status)
+        return notasDB.status(nota)
+    else: 
+        status = 0
+        nota = Notas(id = nota.id, estado = status)
+        return notasDB.status(nota)

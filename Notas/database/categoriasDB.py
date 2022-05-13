@@ -3,7 +3,8 @@ from .connection import DataBase as DB
 from ..helpers import auxx
 
 
-def list_all(userID):
+def list_all(user):
+    ID = user.id
     if auxx.existencia() == 0: # En caso que sea la primera vez usando la app, se creara por unica vez la tabla principal
         query = '''
         CREATE TABLE 'categorias' (
@@ -19,9 +20,8 @@ def list_all(userID):
         listo = 'Recien creada'
         return listo
     else:
-        print('aja')
         query = f'''
-            SELECT * FROM categorias WHERE user_id = '{userID}' ORDER BY idcategorias asc
+            SELECT * FROM categorias WHERE user_id = '{ID}' ORDER BY idcategorias asc
             '''
         categorias = []
         for record in DB.EjecutarSQL(DB, query):

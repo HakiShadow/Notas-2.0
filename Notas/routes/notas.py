@@ -6,93 +6,110 @@ from .exceptions import Errores
 
 notas = Blueprint("notas", __name__)
 
-@notas.route('/<user>/tareas/<id>', methods=['GET'])
+@notas.route('/<user>/categoria/<id>', methods=['GET'])
 def list(user, id):
     try:
-        if user in session['user']:
-            print(1)
+        if user not in session['user']:
+            return redirect(url_for('sesiones.login'))
+   
+        else:
             idUser = auxx.selectUserID(user)
             categoria = Categoria(id = id, id_user = idUser)
             notas = notas_controller.list(categoria) or []
-            print(1)
-            return render_template('listTareas.html', tarea = notas, id = id)
-        else:
-            return redirect(url_for('sesiones.login'))
+
+            return render_template('listTareas.html', tarea = notas, id = id, user = user)
+
     except Exception as ex:
         print(ex)
         return redirect(url_for('categorias.get_list', user = user))
 
-@notas.route('/add/<id>', methods=['GET', 'POST'])
-def addNote(id):
-    categoria = Categoria(id = id)
-    if request.method == 'POST':
-        try:
-            datos = request.form
-            nota = Notas(nota = datos['tarea'],
-                        dia = datos['dia'],
-                        mes = datos['mes'],
-                        estado = 0)
-        except Exception as ex:
-            print(ex)
-            return Errores.badrequest()
-        else:   
-            notas_controller.create(categoria, nota)
-            return redirect(url_for('notas.list', id = categoria))
-    else:
-        return render_template('tareaEdAdd.html', accion = 'Crear', id = categoria.id)
+@notas.route('/<user>/add/<id>', methods=['GET', 'POST'])
+def addNote(user, id):
+    try:
+        if user not in session['user']:
+            return redirect(url_for('sesiones.login'))
 
-@notas.route('/eliminar/<id>/<notaid>')
-def delete(id, notaid):
-    categoria = Categoria(id = id)
-    notaId = Notas(id = notaid)
-    notas_controller.delete(categoria, notaId)
-    return redirect(url_for('notas.list', id = categoria))
+        else:
+            categoria = Categoria(id = id)
+            user = Users(user = user, id = auxx.selectUserID(user))
 
-@notas.route('/editar/<id>/<idtarea>', methods = ['POST', 'GET'])
-def editar(id, idtarea):
-    categoria = Categoria(id = id)
-
-    if request.method == 'POST':
-
-        try:
-            datos = request.form
-
-            nota = Notas(nota = datos['tarea'],
-                        dia =  datos['dia'],
-                        mes = datos['mes'])
-
-            notaID = Notas(id = idtarea)
-
-        except Exception as ex:
-            print(ex)
-            return  Errores.badrequest()
-
-        notas_controller.update(nota, notaID, categoria)
-        return redirect(url_for('notas.list', id = categoria))
-    else:
-        return render_template('tareaEdAdd.html', accion = 'Editar', id = categoria.id)
-
-
-@notas.route('/listo/<id>/<idtarea>')
-def cambiar(id, idtarea):
-
-    categoriaID = Categoria(id=id) # ID de la categoria
+            if request.method == 'GET':
+                return render_template('tareaEdAdd.html', accion = 'Crear', id = categoria.id)
     
-    categoria = auxx.select(categoriaID.id) # Nombre de la categoria
+            else:
+                try:
+                    datos = request.form
+                    nota = Notas(nota = datos['tarea'],
+                                dia = datos.get('dia'),
+                                mes = datos.get('mes'),
+                                estado = 0)
+                except Exception as ex:
+                    print(ex)
+                    return Errores.badrequest()
+                else:   
+                    notas_controller.create(categoria, nota, user)
+                    return redirect(url_for('notas.list', user = user.user, id = categoria.id))
 
-    nota = auxx.selectTarea(categoria, idtarea) # Contenido de la tabla categoria en ese id
+    except Exception as ex:
+        print(ex)
+        return redirect(url_for('notas.list', user = user.user, id = id))
 
-    notas = Notas()
+@notas.route('/<user>/eliminar/<id>/<notaid>')
+def delete(user, id, notaid):
+    try:
+        if user not in session['user']:
+            return redirect(url_for('sesiones.login'))
 
-    if nota[3] == 0:
-        estado = 1
-        notas = Notas(id = idtarea, estado = estado)
+        else:
+            nota_id = Notas(id = notaid)
+            notas_controller.delete(nota_id)
+            return redirect(url_for('notas.list', user = user, id = id))
 
-        notas_controller.status(categoria, notas) # Se envia el nombre de la categoria, y el contenido de la tabla en ese id
-    else: 
-        estado = 0
-        notas = Notas(id = idtarea, estado = estado)
+    except Exception as ex:
+        print(ex)
+        return redirect(url_for('notas.list', user = user, id = id))
 
-        notas_controller.status(categoria, notas) # Se envia el nombre de la categoria, y el contenido de la tabla en ese id
+@notas.route('/<user>/editar/<id>/<idtarea>', methods = ['POST', 'GET'])
+def editar(user, id, idtarea):
+    try:
+        if user not in session['user']:
+            return redirect(url_for('sesiones.login'))
 
-    return redirect(url_for('notas.list', id = categoriaID))
+        else:
+            if request.method == 'GET':
+                return render_template('tareaEdAdd.html', user = user, accion = 'Editar', id = id)
+            else:
+                try:
+                    datos = request.form
+                    newNota = Notas(nota = datos['tarea'],
+                                dia = datos.get('dia'),
+                                mes = datos.get('mes'))
+                    notaID = Notas(id = idtarea)
+
+                except Exception as ex:
+                    print(ex)
+                    return  Errores.badrequest()
+                
+                else:
+                    notas_controller.update(newNota, notaID)
+                    return redirect(url_for('notas.list', user = user, id = id))
+
+    except Exception as ex:
+        print(ex)
+        return redirect(url_for('notas.list', user = user, id = id))
+
+@notas.route('/<user>/listo/<id>/<idtarea>')
+def cambiar(user, id, idtarea):
+    try:
+        if user not in session['user']:
+            return redirect(url_for('sesiones.login'))
+
+        else:
+            nota = Notas(id = idtarea)
+            notas_controller.status(nota)
+
+            return redirect(url_for('notas.list', user = user, id = id))
+
+    except Exception as ex:
+        print(ex)
+        return redirect(url_for('notas.list', user = user, id = id))

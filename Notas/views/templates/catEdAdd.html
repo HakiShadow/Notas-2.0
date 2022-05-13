@@ -10,7 +10,7 @@
 
 {% block content %}
 <div class="home">
-    <a href="/">
+    <a href="/{{user}}">
         <i class="fa-solid fa-list-check icono"></i>
     </a>
 </div>
@@ -20,7 +20,7 @@
             {{ accion }}
         </h1>
         <div class="form__container-textarea">
-            <input type="text" class="form__input form__text-area" name="nombre" id="tarea">
+            <input type="text" class="form__input form__text-area" name="nombre" id="tarea" required>
             <label class="form__label" for="tarea">Nombre de categoria</label>
         </div>
         <button class="submit" type="submit">Enviar</button>

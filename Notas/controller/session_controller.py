@@ -2,14 +2,8 @@ import bcrypt
 from ..database import sessionsDB
 from ..models.models import Users
 
-def verify(user: Users):
-    hash = sessionsDB.verify(user)
-
-    if hash != '':
-        return hash
-    else:
-        return 404
-
+def login(user: Users):
+    return sessionsDB.login(user)
 
 def register(user: Users):
 

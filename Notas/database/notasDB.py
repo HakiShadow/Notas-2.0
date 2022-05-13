@@ -8,7 +8,9 @@ def list_all(categoria):
 
     try:
         query = f'''
-        SELECT * FROM tareas WHERE id_cat = {categoria.id} and id_user = {categoria.id_user} ;
+        SELECT * FROM tareas 
+        WHERE id_cat = {categoria.id} and id_user = {categoria.id_user}
+        ORDER BY estado and id_tareas asc ;
         '''
         result = []
         result = DB.EjecutarSQL(DB, query)
@@ -17,18 +19,16 @@ def list_all(categoria):
         print(ex)
         return Errores.badrequest()
         
-def create(categoriaId, notas):
-
+def create(categoria, notas, user):
     try:
-        categoriaId = categoriaId.id
-        tablaCat = auxx.select(categoriaId)
-        tablaCat = tablaCat.replace(" ", "")
-
+        idCat = categoria.id
+        idUser = user.id
+        
         nota = auxx.preparar(notas)
 
         query = f'''
-        INSERT INTO {tablaCat} (tarea, fecha, estado)
-        VALUES ('{nota[0]}', STR_TO_DATE('{nota[1]}',"%m/%d"), '{nota[2]}')
+        INSERT INTO tareas (nota, fecha, estado, id_user, id_cat)
+        VALUES ('{nota[0]}', STR_TO_DATE('{nota[1]}',"%m/%d"), '{nota[2]}', {idUser}, {idCat} )
         '''
         DB.EjecutarSQL(DB, query)
 
@@ -36,47 +36,36 @@ def create(categoriaId, notas):
         print(ex)
         return ex
 
-def delete(categoriaId, notaId):
-    categoriaId = categoriaId.id
-    notaId = notaId.id
-
-    categoriaName = auxx.select(categoriaId)
-    categoriaName = categoriaName.replace(" ", "")
+def delete(nota):
+    id = nota.id
 
     query = f'''
-    DELETE FROM {categoriaName}
-    WHERE id = '{notaId}'
+    DELETE FROM tareas
+    WHERE id_tareas = '{id}'
     '''
     DB.EjecutarSQL(DB, query)
 
-def status(categoria, notas):
-    
-    categoria = categoria.replace(" ", "")
-
+def status(notas):
+    print(notas)
     query = f"""
-    UPDATE {categoria} SET estado = '{notas.estado}' WHERE id = '{notas.id}'
+    UPDATE tareas SET estado = '{notas.estado}' WHERE id_tareas = '{notas.id}'
     """
     DB.EjecutarSQL(DB, query)
 
-def update(notas, notaID, categoria):
+def update(notas, notaID):
 
     try:
-        categoria = auxx.select(categoria.id) # Nombre de la categoria donde se ubica la nota que queremos cambiar
-        categoria = categoria.replace(" ", "")
-
         nota = auxx.preparar(notas)
 
         query = f"""
-        UPDATE {categoria} 
+        UPDATE tareas
         SET
-        tarea = '{nota[0]}',
+        nota = '{nota[0]}',
         fecha = STR_TO_DATE('{nota[1]}',"%m/%d")
-        WHERE id = {notaID.id}
+        WHERE id_tareas = {notaID.id}
         """
         DB.EjecutarSQL(DB, query)
     
     except Exception as ex:
         print(ex)
         return ex
-
-

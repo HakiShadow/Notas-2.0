@@ -1,23 +1,16 @@
 from ..database.connection import DataBase as DB
+from datetime import datetime
+from ..models.models import Users
 
-def select(id):
-    query = f'''
-    SELECT categoria FROM categorias
-    WHERE id = {id};
-    '''
-    nombre = DB.EjecutarSQL(DB, query)
-    nombre = nombre[0][0]
-    return nombre
+def tareaStatus(idtarea):
 
-def selectTarea(categoria, idtarea):
-    categoria = categoria.replace(" ", "")
     query = f'''
-    SELECT * FROM {categoria}
-    WHERE id = {idtarea};
+    SELECT estado FROM tareas
+    WHERE id_tareas = {idtarea};
     '''
-    tarea = DB.EjecutarSQL(DB, query)
-    tarea = tarea[0]
-    return tarea
+    status = DB.EjecutarSQL(DB, query)
+    status = status[0][0]
+    return status
 
 def existencia():
     query = '''
@@ -32,21 +25,23 @@ def existencia():
 def preparar(notas):
 
     nota = notas.nota
-    dia = notas.dia
-    mes = notas.mes
     estado = notas.estado
 
     notaSplit = nota.split() # Creamos una lista con lo que nos viene en la nota
     mayus = notaSplit[0].capitalize() # Primera palabra en mayusculas
 
-    notaSplit.pop(0) # Quitamos el primer elemento porque estaba en minusculas
+    notaSplit.pop(0) # Quitamos la primer palabra porque estaba en minusculas
     notaSplit.insert(0, mayus)  # En el lugar anterior agregamos el elemento mayus
     nota = ' '.join(notaSplit)  # Reunimos todo y lo devolvemos
     nota = nota + '.'
 
+    if (notas.dia is None and notas.mes is None):
+        dia = datetime.today().strftime('%d')
+        mes = datetime.today().strftime('%m')
+    else:
+        dia = str(notas.dia)
+        mes = str(notas.mes)
 
-    mes = str(notas.mes)
-    dia = str(notas.dia)
     fecha = (mes+'/'+dia)
 
     nota = [nota, fecha, estado]
