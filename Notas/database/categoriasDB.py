@@ -4,26 +4,19 @@ from ..helpers import auxx
 
 
 def list_all(user):
-    ID = user.id
-    if auxx.existencia() == 0: # En caso que sea la primera vez usando la app, se creara por unica vez la tabla principal
-        query = '''
-        CREATE TABLE 'categorias' (
-        'idcategorias' int NOT NULL AUTO_INCREMENT,
-        'categoria' varchar(45) NOT NULL,
-        'user_id' int NOT NULL,
-        PRIMARY KEY ('idcategorias'),
-        KEY 'idusers_idx' ('user_id'),
-        CONSTRAINT 'idusers' FOREIGN KEY ('user_id') REFERENCES 'users' ('idusers')
-        ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
-        '''
-        DB.EjecutarSQL(DB, query)
-        listo = 'Recien creada'
-        return listo
-    else:
+    try:
+        ID = user.id
+
         query = f'''
             SELECT * FROM categorias WHERE user_id = '{ID}' ORDER BY idcategorias asc
             '''
         categorias = []
+
+    except Exception as ex:
+        print(ex)
+        return ex
+
+    else:
         for record in DB.EjecutarSQL(DB, query):
             categoria = Categoria(id=record[0], categoria=record[1]) #Se genera una lista que contiene objetos!
             categorias.append(categoria)

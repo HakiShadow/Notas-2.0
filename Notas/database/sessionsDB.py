@@ -16,7 +16,7 @@ def login(user):
             if bcrypt.checkpw(password, hashAlmacenada):
                 return 200
             else:
-                return 406
+                return 400
 
     except Exception as ex:
         print(ex)
@@ -39,18 +39,18 @@ def verify(user):
     
 def create(user):
     try:
-            # No verifico si el usuario ya existe, puesto que de existir el proceso fallaria
-            hash = user.pas
-            hash = hash.decode()
+        # No verifico si el usuario ya existe, puesto que de existir el proceso fallaria
+        hash = user.pas
+        hash = hash.decode()
 
-            query = f'''
-            INSERT INTO users (user, pass) VALUES ('{user.user}', '{hash}')
-            '''
-            DB.EjecutarSQL(DB, query)
-            return 200
-
+        query = f'''
+        INSERT INTO users (user, pass) VALUES ('{user.user}', '{hash}')
+        '''
+        DB.EjecutarSQL(DB, query)
+        return 200
+        
     except Exception as ex:
             print (ex)
-            return 406
+            return 400
 
 

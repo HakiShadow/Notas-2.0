@@ -5,7 +5,6 @@ from ..routes.exceptions import Errores
 
 
 def list_all(categoria):
-
     try:
         query = f'''
         SELECT * FROM tareas 
@@ -37,23 +36,27 @@ def create(categoria, notas, user):
         return ex
 
 def delete(nota):
-    id = nota.id
-
-    query = f'''
-    DELETE FROM tareas
-    WHERE id_tareas = '{id}'
-    '''
-    DB.EjecutarSQL(DB, query)
+    try:
+        query = f'''
+        DELETE FROM tareas
+        WHERE id_tareas = '{nota.id}'
+        '''
+        DB.EjecutarSQL(DB, query)
+    except Exception as ex:
+        print(ex)
+        return ex
 
 def status(notas):
-    print(notas)
-    query = f"""
-    UPDATE tareas SET estado = '{notas.estado}' WHERE id_tareas = '{notas.id}'
-    """
-    DB.EjecutarSQL(DB, query)
+    try:
+        query = f"""
+        UPDATE tareas SET estado = '{notas.estado}' WHERE id_tareas = '{notas.id}'
+        """
+        DB.EjecutarSQL(DB, query)
+    except Exception as ex:
+        print(ex)
+        return ex
 
 def update(notas, notaID):
-
     try:
         nota = auxx.preparar(notas)
 

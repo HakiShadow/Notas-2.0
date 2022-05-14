@@ -18,11 +18,16 @@ def status(nota: Notas):
 
     status = auxx.tareaStatus(nota.id)
 
-    if status == 0:
-        status = 1
-        nota = Notas(id = nota.id, estado = status)
-        return notasDB.status(nota)
-    else: 
-        status = 0
-        nota = Notas(id = nota.id, estado = status)
-        return notasDB.status(nota)
+    try:
+        if status == 0:
+            status = 1
+            nota = Notas(id = nota.id, estado = status)
+            return notasDB.status(nota)
+        else: 
+            status = 0
+            nota = Notas(id = nota.id, estado = status)
+            return notasDB.status(nota)
+
+    except Exception as ex:
+        print(ex, 'Problema en control de sesion')
+        return 406

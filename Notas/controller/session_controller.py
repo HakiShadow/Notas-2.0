@@ -6,16 +6,14 @@ def login(user: Users):
     return sessionsDB.login(user)
 
 def register(user: Users):
-
     username = user.user
 
-    hash = (user.pas).encode()
     sal = bcrypt.gensalt()
+    hash = (user.pas).encode()
 
     hash = bcrypt.hashpw(hash, sal)
 
     user = Users(user = username, pas = hash)
-
     return sessionsDB.create(user)
 
 def delete(user: Users):
