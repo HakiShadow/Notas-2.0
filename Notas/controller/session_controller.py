@@ -17,8 +17,11 @@ def register(user: Users):
     return sessionsDB.create(user)
 
 def delete(user: Users):
-    pass
-    return sessionsDB.delete(user)
+    coincide = sessionsDB.login(user)
+    if coincide == 200:
+        return sessionsDB.delete(user)
+    else:
+        return 400
 
 def update(user: Users):
     pass

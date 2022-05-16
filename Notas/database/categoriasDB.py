@@ -1,6 +1,5 @@
 from ..models.models import Categoria
 from .connection import DataBase as DB
-from ..helpers import auxx
 
 
 def list_all(user):
@@ -36,20 +35,15 @@ def create(categoria, user):
         print(ex)
         return ex
 
-def delete(categoria, user):
+def delete(categoria):
 
+    print(categoria.id)
     query = f"""
     DELETE FROM categorias
-    WHERE idcategorias = {categoria.id} and user_id = '{user.id}'
+    WHERE idcategorias = {categoria.id}
     """
     DB.EjecutarSQL(DB, query)
 
-    query = f"""
-        DELETE FROM tareas 
-        WHERE id_cat = {categoria.id} and id_user = {user.id}
-        """
-    DB.EjecutarSQL(DB, query)
-    
 def update(categoria, user):
 
     try: 

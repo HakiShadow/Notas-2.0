@@ -1,6 +1,5 @@
 from ..database.connection import DataBase as DB
 from datetime import datetime
-from ..models.models import Users
 
 def tareaStatus(idtarea):
 
@@ -57,7 +56,7 @@ def recordarme(recordar):
 
 def selectUserID(user):
     query = f'''
-    SELECT idusers FROM users WHERE user = '{user}'
+    SELECT user_id FROM users WHERE user = '{user}'
     '''
     result = DB.EjecutarSQL(DB, query)
     result = result[0][0]

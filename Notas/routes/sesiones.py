@@ -37,7 +37,7 @@ def login():
                     return redirect(url_for('sesiones.signup'))
 
             except Exception as ex:
-                print(ex)
+                print(ex, 'here')
                 return redirect(url_for('sesiones.signup'))
 
 @sesion.route('/signup', methods=['GET','POST'])
@@ -65,6 +65,27 @@ def signup():
 def logout():
     session.clear()
     return redirect(url_for('sesiones.login'))
+
+@sesion.route('/delete', methods=['GET', 'POST'])
+def delete():
+        if (session.get('user') == None):
+            return redirect(url_for('sesiones.login'))
+
+        else:
+            if request.method == 'GET':
+                return render_template('confirm.html')
+            
+            else:
+                datos = request.form
+                user = datos['user']
+                password = datos['pass']
+
+                user = Users(user = user, pas = password)
+
+                session_controller.delete(user)
+                return redirect(url_for('sesiones.login'))
+
+
 
 # @session.route('/update')
 # def update():

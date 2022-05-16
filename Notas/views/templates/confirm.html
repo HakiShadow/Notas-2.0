@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Eliminar user
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sesion.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form class="form" action="" method="post">
+        <h2>¡¡Eliminar usuario!!</h2>
+            
+            <div class="form__input-container">
+                <input type="text" name="user" required placeholder="user" class="form__input" id="user">
+                <label for="user" class="form__label">User</label>
+            </div>
+    
+            <div class="form__input-container">
+                <input type="password" name="pass" required placeholder="pass" class="form__input" id="pass">           
+                <label for="pass" class="form__label">Pass</label>
+            </div>    
+        
+        <button class="submit" type="submit">Enviar</button>
+
+        <p class="advertencia">Advertencia... Este procedimiento es irreversible</p>
+    </form>
+</div>
+{% endblock %}

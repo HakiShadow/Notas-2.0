@@ -1,4 +1,3 @@
-from flask import redirect, url_for
 from .connection import DataBase as DB
 from ..helpers import auxx
 from ..routes.exceptions import Errores 
@@ -8,7 +7,7 @@ def list_all(categoria):
     try:
         query = f'''
         SELECT * FROM tareas 
-        WHERE id_cat = {categoria.id} and id_user = {categoria.id_user}
+        WHERE cat_id = {categoria.id} and user_id = {categoria.id_user}
         ORDER BY estado and id_tareas asc ;
         '''
         result = []
@@ -26,7 +25,7 @@ def create(categoria, notas, user):
         nota = auxx.preparar(notas)
 
         query = f'''
-        INSERT INTO tareas (nota, fecha, estado, id_user, id_cat)
+        INSERT INTO tareas (nota, fecha, estado, user_id, cat_id)
         VALUES ('{nota[0]}', STR_TO_DATE('{nota[1]}',"%m/%d"), '{nota[2]}', {idUser}, {idCat} )
         '''
         DB.EjecutarSQL(DB, query)

@@ -1,8 +1,6 @@
 import bcrypt
 from ..database.connection import DataBase as DB
-from ..models.models import Users
-from ..helpers import auxx
-
+from flask import redirect, session, url_for
 
 def login(user):
     try: 
@@ -19,11 +17,10 @@ def login(user):
                 return 400
 
     except Exception as ex:
-        print(ex)
+        print(ex, 'login')
         return 404
 
 def verify(user):
-
     try:
         query = f'''
         SELECT pass FROM users WHERE user = '{user.user}'
@@ -33,7 +30,7 @@ def verify(user):
         return hashpass
     
     except Exception as ex:
-        print(ex)
+        print(ex, 'verify')
         hashpass = ''
         return hashpass
     
@@ -53,4 +50,16 @@ def create(user):
             print (ex)
             return 400
 
+def delete(user):
 
+    try:
+        query = f'''
+        DELETE FROM users WHERE user = '{user.user}'
+        '''
+        DB.EjecutarSQL(DB, query)
+        session.clear()
+        return 200
+
+    except Exception as ex:
+        print (ex, 'delete ')
+        return 400

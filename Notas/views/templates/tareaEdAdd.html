@@ -10,18 +10,19 @@
 
 {% block content %}
 <div class="home">
-    <a href="/{{user}}//tareas/{{id}}">
+    <a href="/{{user}}/categoria/{{id}}">
         <i class="fa-solid fa-list-check icono"></i>
     </a>
 </div>
+
 <div class="container">
-    <form class="form" action="" method="post">
+    <form id="formID" class="form" action="" method="post">
         <h1 class="title">
             {{ accion }}
         </h1>
         <input type="hidden" name="id" value="id">
         <div class="form__container-textarea">
-            <textarea class="form__input form__text-area" name="tarea" id="tarea" cols="30" rows="10"  required></textarea>
+            <textarea class="form__input form__text-area" name="tarea" id="tarea" cols="30" rows="10" required onkeypress="return checkkey(event)"></textarea>
             <label class="form__label" for="tarea">Escribe una tarea</label>
         </div>
 

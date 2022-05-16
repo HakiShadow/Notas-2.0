@@ -14,32 +14,24 @@ Login
         <h1>Login</h1>
 
         <div class="form__input-container">
-            
-            <label for="user" class="form__label">
-                User:
-                <input type="text" name="user" required placeholder="user" class="form__input" id="user">
-            </label>
-            
+            <input type="text" name="user" required placeholder="user" class="form__input" id="user">
+            <label for="user" class="form__label">User</label>
         </div>
 
         <div class="form__input-container">
-            
-            <label for="pass" class="form__label">
-                Pass:
-                <input type="password" name="pass" required placeholder="pass" class="form__input" id="pass">
-            </label>
-            
+            <input type="password" name="pass" required placeholder="pass" class="form__input" id="pass">           
+            <label for="pass" class="form__label">Pass</label>
         </div>
-        <div class="form__input-container">
-
-            <label for="check" class="form__label">
+        
+        <div class="form__checkbox">
+            <label for="check" class="form__label-checkbox">
                 Mantener la sesión activa?
-                <input type="checkbox" name="check" id="check">
+                <input type="checkbox" name="check" id="check" class="form__check">
             </label>
-
         </div>
         
         <button class="submit" type="submit">Enviar</button>
+        <a href="/signup">Registrate</a>
     </form>
 </div>
 {% endblock %}

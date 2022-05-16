@@ -34,7 +34,7 @@ def addNote(user, id):
             user = Users(user = user, id = auxx.selectUserID(user))
 
             if request.method == 'GET':
-                return render_template('tareaEdAdd.html', accion = 'Crear', id = categoria.id)
+                return render_template('tareaEdAdd.html', user = user.user, accion = 'Crear nota', id = categoria.id)
     
             else:
                 try:
@@ -77,7 +77,7 @@ def editar(user, id, idtarea):
 
         else:
             if request.method == 'GET':
-                return render_template('tareaEdAdd.html', user = user, accion = 'Editar', id = id)
+                return render_template('tareaEdAdd.html', user = user, accion = 'Editar nota', id = id)
             else:
                 try:
                     datos = request.form

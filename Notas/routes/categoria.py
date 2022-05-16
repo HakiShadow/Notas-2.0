@@ -7,7 +7,6 @@ from ..helpers import auxx
 
 categoria = Blueprint("categorias", __name__)
 
-
 @categoria.route('/<user>', methods=['GET'])
 def get_list(user):
     try:
@@ -18,10 +17,7 @@ def get_list(user):
             user = Users(user = user, id = auxx.selectUserID(user))
             categorias = cat_controller.lists(user)
 
-            if categorias == 'Recien creada':
-                return redirect(url_for('categorias.get_list', user = user.user))
-            else:
-                return render_template('listCategorias.html', categoria = categorias, user = user.user)
+            return render_template('listCategorias.html', categoria = categorias, user = user.user)
 
     except Exception as ex:
         print(ex)
@@ -48,7 +44,7 @@ def create(user):
                     cat_controller.create(cat, user)
                     return redirect(url_for('categorias.get_list', user = user.user))
             else:
-                return render_template('catEdAdd.html', user = user.user, accion = 'Añadir')
+                return render_template('catEdAdd.html', user = user.user, accion = 'Añadir categoria')
 
     except Exception as ex:
         print(ex)
@@ -62,7 +58,7 @@ def delete(user, id):
         else:
             cat = Categoria(id = id)
             user = Users(user = user, id = auxx.selectUserID(user))
-            cat_controller.delete(cat, user)
+            cat_controller.delete(cat)
             return redirect(url_for('categorias.get_list', user = user.user))
 
     except Exception as ex:
@@ -90,7 +86,7 @@ def editarCat(user, id):
                     return redirect(url_for('categorias.get_list', user = user.user))
 
             else:
-                return render_template('catEdAdd.html', user = user.user, id = id, accion = 'Editar')
+                return render_template('catEdAdd.html', user = user.user, id = id, accion = 'Editar categoria')
 
     except Exception as ex:
         print(ex)
