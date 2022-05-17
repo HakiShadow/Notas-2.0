@@ -61,3 +61,11 @@ def selectUserID(user):
     result = DB.EjecutarSQL(DB, query)
     result = result[0][0]
     return result
+
+def selectCategoria(catId):
+    query = f'''
+    SELECT categoria FROM categorias WHERE idcategorias = '{catId}'
+    '''
+    result = DB.EjecutarSQL(DB, query)
+    result = result[0][0]
+    return result

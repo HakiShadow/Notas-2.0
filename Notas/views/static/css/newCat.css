@@ -346,14 +346,6 @@ template {
   display: none;
 }
 
-.home {
-  grid-area: atajo;
-  display: flex;
-  justify-content: center;
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
 .container {
   grid-area: center;
   padding: 0.5em;
@@ -370,7 +362,7 @@ template {
   justify-content: center;
   align-items: center;
   width: 20em;
-  border: #800080 solid 4px;
+  border: #800080 solid 3px;
   border-radius: 0.6em;
   background-color: #E6F4FF;
   padding: 0.5em;
@@ -427,25 +419,6 @@ template {
 }
 .form__input:focus + .form__label {
   color: #800080;
-}
-
-.submit {
-  width: 8em;
-  height: 2em;
-  margin-bottom: 1em;
-  border: 3px solid #800080;
-  border-radius: 0.6em;
-}
-.submit:hover {
-  transform: translateY(-2px);
-  outline: #FFF;
-}
-
-.icono {
-  font-size: 3em;
-}
-.icono:hover {
-  color: #8b0000;
 }
 
 .placeholder {

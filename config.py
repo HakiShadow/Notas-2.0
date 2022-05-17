@@ -1,7 +1,7 @@
 class Config:
     SERVER_NAME = 'localhost.localdomain:8080'
     SECRET_KEY = '123456789'
-    DEBUG = True
+    DEBUG = False
     TESTING = False
     TEMPLATE_FOLDER = 'views/templates'
     STATIC_FOLDER = 'views/static'

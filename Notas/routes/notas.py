@@ -13,11 +13,16 @@ def list(user, id):
             return redirect(url_for('sesiones.login'))
    
         else:
-            idUser = auxx.selectUserID(user)
-            categoria = Categoria(id = id, id_user = idUser)
+            catNombre = auxx.selectCategoria(id) # Devuelve el nombre de la categoria
+            idUser = auxx.selectUserID(user) # Utilizando el nombre de usuario, buscamos el id del user
+            categoria = Categoria(id = id, categoria = catNombre, id_user = idUser)
             notas = notas_controller.list(categoria) or []
 
-            return render_template('listTareas.html', tarea = notas, id = id, user = user)
+            return render_template('listTareas.html', 
+                                    tarea = notas, 
+                                    id = id, 
+                                    user = user, 
+                                    categoria = categoria.categoria)
 
     except Exception as ex:
         print(ex)
