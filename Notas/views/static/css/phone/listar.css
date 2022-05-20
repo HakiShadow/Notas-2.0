@@ -346,84 +346,8 @@ template {
   display: none;
 }
 
-body {
-  font-family: cursive;
-  size: 20px;
-  background-color: #6C4675;
-  display: grid;
-  height: 100vh;
-  grid-template-areas: "logo . ." ". atajo ." ". center .";
-  grid-template-rows: repeat(3, max-content);
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.logo {
-  grid-area: logo;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 3em;
-  height: 3em;
-  margin: 0.3em;
-  color: #Fff;
-  font-size: 3em;
-  background-color: #000;
-  border-radius: 30%;
-  border: #fff 2px solid;
-}
-
-.abajo {
-  font-size: 2em;
-  color: black;
-  top: 26px;
-  left: 2px;
-}
-
-.arriba {
-  font-size: 2em;
-  color: #FFF;
-}
-
-.atajos {
-  grid-area: atajo;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  align-items: center;
-}
-.atajos .icono {
-  font-size: 3em;
-  margin: 10px;
-  border-radius: 50%;
-  color: #000;
-}
-.atajos .icono:hover {
-  color: #19a5fc;
-}
-
-.table__container {
-  grid-area: center;
-  display: flex;
-  justify-content: center;
-  border: #fff 3px solid;
-  min-width: 30em;
-  margin: auto;
-}
-
-.submit {
-  width: 8em;
-  height: 2em;
-  margin-bottom: 1em;
-  border: 3px solid #000;
-  border-radius: 0.6em;
-}
-.submit:hover {
-  transform: translateY(-2px);
-  outline: #800080;
-}
-
 .table {
-  table-layout: auto;
+  table-layout: fixed;
   border-collapse: collapse;
   width: -webkit-fill-available;
 }
@@ -451,14 +375,15 @@ body {
   font-size: 23px;
   margin-left: 10px;
   border-radius: 50%;
-  color: #000;
+  color: #fff;
 }
 .table__row {
   background-color: #Ffbe33;
 }
 .table__row-encabezado {
   background-color: #c0d0dd;
-  border-bottom: 2px solid #800080;
+  border-bottom: 3px solid;
+  animation: borderColorChanging linear alternate infinite 5s;
 }
 .table__row:nth-child(even) {
   background-color: #F5a700;
@@ -475,18 +400,31 @@ body {
   color: #000;
   text-decoration: none;
 }
+.table__a:hover {
+  font-weight: bold;
+}
 
 .finalizada {
   color: red;
   text-decoration: line-through;
 }
 
-.error__container {
-  width: 100wh;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+@keyframes borderColorChanging {
+  0% {
+    border-color: #f1f1f1;
+  }
+  25% {
+    border-color: #800080;
+  }
+  50% {
+    border-color: #840909;
+  }
+  75% {
+    border-color: #490000;
+  }
+  100% {
+    border-color: #000;
+  }
 }
 
-/*# sourceMappingURL=base.css.map */
+/*# sourceMappingURL=listar.css.map */

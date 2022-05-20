@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/newTarea.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/desktop/new.css')}}" media="(max-width: 1920px)">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tablet/new.css')}}" media="(max-width: 720px)">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/phone/new.css')}}" media="(max-width: 375px)">
 {% endblock %}
 
 {% block content %}

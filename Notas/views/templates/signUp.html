@@ -5,7 +5,9 @@ Signup
 {% endblock %}
 
 {% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/sesion.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/desktop/sesion.css')}}" media="(max-width: 1920px)">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tablet/sesion.css')}}" media="(max-width: 720px)">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/phone/sesion.css')}}" media="(max-width: 375px)">
 {% endblock %}
 
 {% block content %}

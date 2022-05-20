@@ -1,5 +1,6 @@
 from ..models.models import Categoria
 from .connection import DataBase as DB
+from ..helpers import auxx
 
 
 def list_all(user):
@@ -23,7 +24,9 @@ def list_all(user):
 
 def create(categoria, user):
     try:
-        nombre = (categoria.categoria).capitalize()
+
+        nombre = auxx.prepararCat(categoria)
+
         userID = user.id
         query = f'''
             INSERT INTO categorias (categoria, user_id)
@@ -56,9 +59,10 @@ def update(categoria, user):
 
     else:
         try:
+            newName = auxx.prepararCat(categoria)
             query = f"""
             UPDATE categorias 
-            SET categoria = '{newName.capitalize()}'
+            SET categoria = '{newName}'
             WHERE (idcategorias = {id}) and (user_id = {user.id})
             """
             DB.EjecutarSQL(DB, query)

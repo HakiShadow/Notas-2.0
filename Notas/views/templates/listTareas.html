@@ -5,7 +5,13 @@ Tareas
 {% endblock %}
 
 {% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/listarTarea.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/desktop/listar.css')}}" media="(max-width: 1920px)">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tablet/listar.css')}}" media="(max-width: 720px)">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/phone/listar.css')}}" media="(max-width: 375px)">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/desktop/listarTarea.css')}}" media="(max-width: 1920px)">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tablet/listarTarea.css')}}" media="(max-width: 720px)">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/phone/listarTarea.css')}}" media="(max-width: 375px)">
 {% endblock %}
 
 {% block content %}

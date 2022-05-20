@@ -346,4 +346,8 @@ template {
   display: none;
 }
 
-/*# sourceMappingURL=listarCat.css.map */
+.body {
+  grid-template-columns: 1fr 4fr 1fr;
+}
+
+/*# sourceMappingURL=listarTarea.css.map */

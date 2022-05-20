@@ -346,86 +346,85 @@ template {
   display: none;
 }
 
-.container {
-  grid-area: center;
+.table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: -webkit-fill-available;
+}
+.table__data {
+  padding: 10px;
+  text-align: center;
+}
+.table__data__icon {
+  visibility: collapse;
+  opacity: 0;
+  transition: 1s;
+}
+.table__data-iconos {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 0;
+}
+.table__data-tarea {
+  max-width: 66em;
+}
+.table__data-encabezado {
+  font-size: 1.2em;
+  padding: 10px;
+}
+.table-icon {
+  font-size: 23px;
+  margin-left: 10px;
+  border-radius: 50%;
+  color: #fff;
+}
+.table__row {
+  background-color: #Ffbe33;
+}
+.table__row-encabezado {
+  background-color: #c0d0dd;
+  border-bottom: 3px solid;
+  animation: borderColorChanging linear alternate infinite 5s;
+}
+.table__row:nth-child(even) {
+  background-color: #F5a700;
+}
+.table__row:hover {
+  background-color: #Ffcb5c;
+}
+.table__row:hover .table__data__icon {
+  visibility: visible;
+  opacity: 1;
+  Transition: opacity 0.3s;
+}
+.table__a {
+  color: #000;
+  text-decoration: none;
+}
+.table__a:hover {
+  font-weight: bold;
 }
 
-.form {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  width: 20em;
-  border: #800080 solid 3px;
-  border-radius: 0.6em;
-  background-color: #E6F4FF;
-  padding: 0.5em;
-  gap: 1em;
-}
-.form__fecha {
-  display: flex;
-  width: 100%;
-  justify-content: space-evenly;
-}
-.form-fecha {
-  display: flex;
-  flex-direction: column;
-}
-.form__label {
-  position: absolute;
-  top: -18px;
-  left: 7px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #80008075;
-}
-.form__label-radio {
-  font-size: 14px;
-  font-weight: 600;
-  color: #80008075;
-}
-.form__container {
-  position: relative;
-  width: 100%;
-  height: 18em;
-}
-.form__container-textarea {
-  position: relative;
-  width: 100%;
-}
-.form__input {
-  resize: none;
-  height: 10em;
-  width: 18em;
-  top: 0;
-  left: 0;
-  border: 3px solid #800080;
-  border-radius: 5px;
-  padding: 5px;
-  color: #babcc0;
-}
-.form__input-fecha {
-  border: 3px solid #800080;
-  border-radius: 5px;
-  width: 5em;
-}
-.form__input:focus + .form__label {
-  color: #800080;
+.finalizada {
+  color: red;
+  text-decoration: line-through;
 }
 
-.placeholder {
-  font-size: 14px;
-  font-weight: 600;
-  color: #800080;
+@keyframes borderColorChanging {
+  0% {
+    border-color: #f1f1f1;
+  }
+  25% {
+    border-color: #800080;
+  }
+  50% {
+    border-color: #840909;
+  }
+  75% {
+    border-color: #490000;
+  }
+  100% {
+    border-color: #000;
+  }
 }
 
-select {
-  font-size: 14px;
-  font-weight: 600;
-  color: #80008075;
-}
-
-/*# sourceMappingURL=newTarea.css.map */
+/*# sourceMappingURL=listar.css.map */

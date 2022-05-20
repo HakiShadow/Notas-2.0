@@ -47,6 +47,17 @@ def preparar(notas):
 
     return nota
 
+def prepararCat(cat):
+    nombre = cat.categoria
+    catSplit = nombre.split() # Creamos una lista con el nombre de la categoria
+    mayus = catSplit[0].capitalize() # Primera palabra en mayusculas
+
+    catSplit.pop(0) # Quitamos la primer palabra porque estaba en minusculas
+    catSplit.insert(0, mayus)  # En el lugar anterior agregamos el elemento mayus
+    nombre = ' '.join(catSplit)  # Reunimos todo y lo devolvemos
+    nombre = nombre + '.'
+    return nombre
+
 def recordarme(recordar):
     if recordar == 'on':
         check = True
@@ -69,3 +80,4 @@ def selectCategoria(catId):
     result = DB.EjecutarSQL(DB, query)
     result = result[0][0]
     return result
+
