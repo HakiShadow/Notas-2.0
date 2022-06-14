@@ -1,0 +1,113 @@
+npm i -D @babel/core @babel/preset-env @babel/preset-react babel-loader
+
+npm i -D babel-plugin-transform-class-properties
+
+{
+   "presets":[
+      "@babel/preset-env",
+      "@babel/preset-react"
+   ],
+   "plugins":[
+      "transform-class-properties"
+   ]
+}
+
+npm i -D webpack@^5.36.2 webpack-cli@^4.6.0 webpack-dev-server@^3.11.2 html-webpack-plugin html-loader
+
+nombre del archivo (webpack.config.js)
+
+const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+ entry: './src/index.js',
+ output: {
+   path: path.resolve(__dirname, 'dist'),
+   filename: 'bundle.js',
+ },
+devServer:{
+  compress: true,
+  port: 3000,
+},
+ resolve: {
+   extensions: ['.js', '.jsx'],
+ },
+ module: {
+   rules: [
+     {
+       test: /\.(js|jsx)$/,
+       exclude: /node_modules/,
+       use: {
+         loader: 'babel-loader',
+       },
+     },
+     {
+       test: /\.html$/,
+       use: [
+         {
+           loader: 'html-loader',
+         },
+       ],
+     },
+   ],
+ },
+ plugins: [
+   new HtmlWebPackPlugin({
+     template: './public/index.html',
+     filename: './index.html',
+   }), ],
+};
+
+scripts en el package.json
+
+{
+   "start": "webpack-cli serve --mode development",
+   "build": "webpack --mode production"
+}
+
+
+npm i -D css-loader style-loader
+
+agregar al archivo webpack dentro de las rules
+
+{
+ test: /\.css$/,
+ use: ['style-loader', 'css-loader'],
+},
+
+
+npm i -D prettier
+
+{
+   "prettier":{
+    "semi": true,
+    "tabWidth": 2,
+    "trailingComma":"all",
+    "singleQuote":true,
+    "printWidth": 100
+  }
+}
+
+crear carpetas src y public
+creamos index.html dentro de public
+
+generamos el html con el comando “ html:5 + tab “ y agregamos un div con un id “app” dentro de la etiqueta body.
+
+
+Creamos un archivo index.js
+
+import React from "react";
+import ReactDOM from "react-dom";
+
+const myApp = () => <p>Componente funcional</p>;
+
+ReactDOM.render(myApp(),document.getElementById("app"));
+
+
+
+
+
+
+
+
+
