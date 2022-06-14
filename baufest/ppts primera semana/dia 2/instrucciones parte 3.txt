@@ -1,0 +1,177 @@
+creamos otra carpeta dentro de src llamada container
+y dentro de container una carpeta archivo About.jsx
+
+import React from "react";
+
+const About = () => {
+    return(
+        <>
+            <p>test about</p>
+        </>
+    )
+}
+
+export default About;
+
+luego en el archivo App.jsx
+import About from "./containers/About";
+
+
+
+
+en About usaremos Typography y a Typography la vamos a preparar para usar props
+
+About
+import React from "react";
+import Typography from "../../components/Typography/Typography";
+
+const About = () => {
+    return(
+        <>
+            <Typography>Lorem ipsum</Typography>
+        </>
+    )
+}
+
+export default About;
+
+Typography
+import React from 'react';
+import { Title } from './styles';
+
+export const Typography = (props) => {
+ return <Title>{props.children}</Title>;
+};
+
+
+
+instalamos boostrap:
+npm install -S react-bootstrap bootstrap
+
+ y lo importamos en el index.js
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+Ahora vamos autilizar boostrap, crearemos un nuevo componente
+Menu.jsx
+
+import React from 'react';
+import { Navbar, Nav } from 'react-bootstrap';
+
+const Menu = () => {
+ return (
+   <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
+     <div className="container">
+       <Navbar.Brand>Baufest Blog</Navbar.Brand>
+       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+       <Navbar.Collapse id="responsive-navbar-nav">
+         <Nav className="mr-auto">
+           <Nav.Link href="#home">Home</Nav.Link>
+           <Nav.Link href="#about">About</Nav.Link>
+
+           <Nav.Link to="/About">About</Nav.Link>
+         </Nav>
+       </Navbar.Collapse>
+     </div>
+   </Navbar>
+ );
+}
+
+export default Menu;
+
+
+
+ahora instalamos react router y react router dom
+npm install -S react-router@^5.2.0
+npm install -S react-router-dom@^5.2.0
+
+
+vamos a crear el componente wrapper como estructura comun en todas las paginas
+
+import React from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
+
+const Wrapper = (props) => {
+    const {children} = props;
+    return (
+      <div>
+        <Menu/>
+        <Container>
+          <Row>
+            <Col>
+              {children}
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    );
+};
+
+export default Wrapper;
+
+
+creamos las paginas jugador y partido
+
+
+y ahora modificamos el App.jsx para hacer el routeo
+
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+y los imports de los containers
+
+<BrowserRouter>
+      <Wrapper>
+           <Switch>
+               <Route exact path="/" component={Home}/>
+               <Route exact path="/about" component={About}/>
+               <Route exact path="/jugador" component={Jugador}/>
+               <Route exact path="/partido" component={Partido}/>
+           </Switch>
+      </Wrapper>
+</BrowserRouter>
+
+
+
+ahora falta hacer el link a las rutas, para eso modificamos el archivo Menu
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+import {Nav, Navbar} from 'react-bootstrap';
+
+const Menu = () => {
+    return (
+        <>
+            <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
+                <div className="container">
+                    <Navbar.Brand>Baufest Tennis</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="mr-auto">
+                            <Nav.Link as={Link} to="/">Home</Nav.Link>
+                            <Nav.Link as={Link} to="/jugador">Jugador</Nav.Link>
+                            <Nav.Link as={Link} to="/partido">Partido</Nav.Link>
+                            <Nav.Link as={Link} to="/about">About</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </div>
+            </Navbar>
+        </>
+    );
+}
+
+export default Menu;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

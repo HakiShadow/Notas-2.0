@@ -1,0 +1,74 @@
+crear carpeta assets dentro de src
+y dentro de assets la carpeta css
+y dentro un archivo app.css
+
+html{
+    background: lightgray;
+}
+
+h1.title-css{
+    font-family: "Helvetica", Arial, sans-serif;
+    color: brown;
+}
+
+
+luego importar el css dentro del App.jsx dentro de src
+
+import './assets/css/app.css'
+
+
+modificamos el App.jsx
+
+ return (
+ <>
+    <h1 className={"title-css"}>Baufest Tennis</h1>
+    <p>Hello world class component componetizado</p>
+ </>
+
+
+ahora instalamos styled components con npm
+npm install -S styled-components
+
+
+creamos una carpeta components dentro de src
+y dentro una carpeta typography
+y dentro un archivo Typography.jsx
+
+import React from "react";
+
+const Typography = () => {
+    return <h1>This is a title styled-components</h1>;
+}
+
+export default Typography;
+
+
+Creamos un archivo styles.jsx dentro del componente Typography
+
+import styled from "styled-components";
+
+export const Title = styled.h1`
+    color: darkorange;
+`;
+
+
+modificamos Typography:
+
+import React from "react";
+import { Title } from './styles';
+
+const Typography = () => {
+    return <Title>This is a title styled-components</Title>;
+}
+
+export default Typography;
+
+
+
+
+
+
+
+
+
+
