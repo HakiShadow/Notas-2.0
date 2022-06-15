@@ -1,0 +1,14 @@
+com\baufest\tennis\springtennis\mapper\JugadorMapperImpl.class
+com\baufest\tennis\springtennis\model\Jugador.class
+com\baufest\tennis\springtennis\controller\JugadorController.class
+com\baufest\tennis\springtennis\dto\JugadorDTO.class
+com\baufest\tennis\springtennis\model\Partido.class
+com\baufest\tennis\springtennis\controller\CustomizedResponseEntityExceptionHandler.class
+com\baufest\tennis\springtennis\enums\Estado.class
+com\baufest\tennis\springtennis\enums\ModoJugador.class
+com\baufest\tennis\springtennis\repository\JugadorRepository.class
+com\baufest\tennis\springtennis\mapper\JugadorMapper.class
+com\baufest\tennis\springtennis\repository\PartidoRepository.class
+com\baufest\tennis\springtennis\SpringtennisApplication.class
+com\baufest\tennis\springtennis\service\JugadorService.class
+com\baufest\tennis\springtennis\service\JugadorServiceImpl.class

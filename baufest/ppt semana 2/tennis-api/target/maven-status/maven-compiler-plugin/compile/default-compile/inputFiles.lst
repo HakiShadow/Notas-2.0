@@ -1,0 +1,14 @@
+Z:\baufest\ppt semana 2\Corte_dia7\corteinicial_dia07\tennis-api\src\main\java\com\baufest\tennis\springtennis\mapper\JugadorMapperImpl.java
+Z:\baufest\ppt semana 2\Corte_dia7\corteinicial_dia07\tennis-api\src\main\java\com\baufest\tennis\springtennis\service\JugadorService.java
+Z:\baufest\ppt semana 2\Corte_dia7\corteinicial_dia07\tennis-api\src\main\java\com\baufest\tennis\springtennis\controller\CustomizedResponseEntityExceptionHandler.java
+Z:\baufest\ppt semana 2\Corte_dia7\corteinicial_dia07\tennis-api\src\main\java\com\baufest\tennis\springtennis\dto\JugadorDTO.java
+Z:\baufest\ppt semana 2\Corte_dia7\corteinicial_dia07\tennis-api\src\main\java\com\baufest\tennis\springtennis\mapper\JugadorMapper.java
+Z:\baufest\ppt semana 2\Corte_dia7\corteinicial_dia07\tennis-api\src\main\java\com\baufest\tennis\springtennis\controller\JugadorController.java
+Z:\baufest\ppt semana 2\Corte_dia7\corteinicial_dia07\tennis-api\src\main\java\com\baufest\tennis\springtennis\model\Jugador.java
+Z:\baufest\ppt semana 2\Corte_dia7\corteinicial_dia07\tennis-api\src\main\java\com\baufest\tennis\springtennis\model\Partido.java
+Z:\baufest\ppt semana 2\Corte_dia7\corteinicial_dia07\tennis-api\src\main\java\com\baufest\tennis\springtennis\enums\ModoJugador.java
+Z:\baufest\ppt semana 2\Corte_dia7\corteinicial_dia07\tennis-api\src\main\java\com\baufest\tennis\springtennis\enums\Estado.java
+Z:\baufest\ppt semana 2\Corte_dia7\corteinicial_dia07\tennis-api\src\main\java\com\baufest\tennis\springtennis\repository\PartidoRepository.java
+Z:\baufest\ppt semana 2\Corte_dia7\corteinicial_dia07\tennis-api\src\main\java\com\baufest\tennis\springtennis\SpringtennisApplication.java
+Z:\baufest\ppt semana 2\Corte_dia7\corteinicial_dia07\tennis-api\src\main\java\com\baufest\tennis\springtennis\repository\JugadorRepository.java
+Z:\baufest\ppt semana 2\Corte_dia7\corteinicial_dia07\tennis-api\src\main\java\com\baufest\tennis\springtennis\service\JugadorServiceImpl.java
